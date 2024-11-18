@@ -6,10 +6,21 @@ public class PasChecker {
     public static void main(String[] args) {
         try{
             Scanner s = new Scanner(System.in);
-            String password = s.nextLine(); //Hello123 hello2134
-            Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9]{8,16}$");
-            Matcher matcher = pattern.matcher(password);
-            System.out.println(matcher.matches() ? "корректный пароль" : "некоректный пароль");
+            String password = s.nextLine();
+
+            boolean lengthV = Pattern.compile("^.{8,16}$").matcher(password).find();
+            boolean UpperCase = Pattern.compile("[A-Z]").matcher(password).find();
+            boolean Digit = Pattern.compile("\\d").matcher(password).find();
+
+            if (!lengthV) {
+                System.out.println("Должно быть от 8 до 16 символов.");
+            }
+            if (!UpperCase) {
+                System.out.println("Пароль должен содержать хотя бы одну заглавную букву.");
+            }
+            if (!Digit) {
+                System.out.println("Пароль должен содержать хотя бы одну цифру.");
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
